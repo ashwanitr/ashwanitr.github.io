@@ -1,0 +1,287 @@
+/*
+ *
+ * Bybu.cc
+ * https://bybu.cc
+ * Copyright (c) 2020 BYBU.CC
+ * 
+*/
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Gelasio", serif;
+  scroll-behavior: smooth;
+}
+.container {
+  padding: 4em;
+}
+.container h1 {
+  color: #e84e89;
+}
+.main-bybu {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+/* sidebar */
+aside {
+  width: 5vw;
+  height: 100%;
+  background: #171717;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+.brand {
+  background: #000;
+  color: #efefef;
+  text-align: center;
+}
+.brand img {
+  max-width: 5vw;
+}
+aside .social-links,
+.links {
+  display: flex;
+  flex-direction: column;
+}
+.alt-text {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  position: absolute;
+  font-size: 12px;
+}
+.links .fa {
+  font-size: 2em;
+  color: #383838;
+}
+.links .fa:hover + p {
+  color: #e84e89;
+  visibility: visible;
+  opacity: 1;
+}
+.links .active {
+  color: #e84e89;
+}
+.links a {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.social-links a {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.social-links .fa {
+  color: #383838;
+}
+.social-links .fa:hover {
+  color: #e84e89;
+}
+
+/* All <h1> Styling */
+#about h3,
+#skills h3,
+#contact h3 {
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 20px;
+  font-size: 1.4rem;
+  margin-bottom: 1em;
+}
+#about h1,
+#skills h1,
+#contact h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin-bottom: 1.6em;
+}
+
+/* main section center */
+section {
+  background: #1c1c1c;
+  height: 100%;
+  width: 95vw;
+  overflow: hidden;
+  overflow-y: visible;
+  /* transition: all 0.8s ease; */
+}
+
+/* Home Page */
+#intro {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+#intro img {
+  width: 250px;
+  z-index: 2;
+}
+#intro p {
+  font-size: 4rem;
+  font-family: "Gelasio", serif;
+  color: #efefef;
+  z-index: 2;
+  transition: all 0.8s ease;
+}
+.video-background {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-size: cover;
+  width: 100%;
+}
+
+/* ABout Us Page */
+#about {
+  height: 100vh;
+}
+#about p {
+  margin-bottom: 20px;
+  color: #888;
+  line-height: 2rem;
+  font-size: 1.2rem;
+}
+#about img {
+  float: right;
+  max-width: 500px;
+  width: 100%;
+  margin-right: 3rem;
+}
+
+/* My Skill Page */
+#skills {
+  height: 100vh;
+}
+#skills p {
+  margin-bottom: 20px;
+  color: #888;
+  line-height: 2rem;
+  font-size: 1.2rem;
+}
+#skills li {
+  color: #888;
+  font-size: 1rem;
+  line-height: 2.8rem;
+  list-style-type: square;
+}
+.skill-container {
+  width: 100%;
+  display: flex;
+}
+.skill-container ul,
+.diamond-grid {
+  width: 50%;
+}
+
+/* skill codepen */
+.diamond-grid {
+  *zoom: 1;
+  width: auto;
+  max-width: 300px;
+  float: none;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 100px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.diamond-grid:before,
+.diamond-grid:after {
+  content: "";
+  display: table;
+}
+.diamond-grid:after {
+  clear: both;
+}
+.diamond-grid .diamond {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  width: 33.3333333333%;
+  margin-left: 0%;
+  margin-right: 0%;
+  height: 100px;
+  background: #323232;
+  border: solid 1px #414141;
+  transition: background-color 0.5s;
+}
+.diamond-grid .diamond:before,
+.diamond-grid .diamond:after {
+  content: "";
+  display: table;
+}
+.diamond-grid .diamond:after {
+  clear: both;
+}
+.diamond-grid .diamond:nth-child(7) {
+  position: relative;
+  left: 34.3333333333%;
+}
+.diamond-grid .diamond:hover {
+  background: #ccc;
+}
+.diamond-grid .diamond a {
+  display: block;
+  height: 100px;
+  padding-top: 50px;
+  padding-left: 20px;
+  text-align: center;
+  color: #636363;
+  text-decoration: none;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  margin-left: -25px;
+}
+
+/* Contact Us Page */
+#contact {
+  height: 100vh;
+}
+#contact p {
+  color: #ccc;
+}
+#contact h4 {
+  text-transform: uppercase;
+  color: aqua;
+  margin-bottom: 1.5em;
+}
+#contact p.start-btn {
+  background: aqua;
+  padding: 1em 1.5em;
+  font-size: 2rem;
+  color: #333;
+  font-weight: bold;
+  border-radius: 100%;
+  border: 15px solid rgba(0, 0, 0, 0.6);
+}
+#contact h2 {
+  font-size: 8em;
+  text-align: center;
+  color: #e84e89;
+}
+#contact p.contact-text {
+  color: #888;
+  font-size: 2rem;
+  line-height: 2;
+  text-align: center;
+}
+#contact h2 span {
+  color: aqua;
+}
+.contact-cols {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8em;
+}

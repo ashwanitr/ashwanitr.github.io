@@ -1,33 +1,153 @@
-<!-- <html>
-    <head>
-        Ashwani Thakur
-        </head>
-        </html>
- -->
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <script src="https://use.fontawesome.com/d1341f9b7a.js"></script>
-    <link rel="stylesheet" href="index.css">
-    <title>Personal WebSite</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="Free website templates that are showcased here are open source, creative commons or totally free. These free CSS-HTML templates can be freely used personally or commercial | Bybu.cc"
+    />
+    <title>Free Portfolio Template | HTML5-CSS - BYBU.CC</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <meta name="author" content="Bybu.cc" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Gelasio&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-<div class="box">
-  <img src="ashwani.jpg" alt="" class="box-img">
-  <h1>
-Ashwani Thakur</h1>
-<h5>
-Software Engineer</h5>
-<p>
-Short description about me</p>
-<ul>
-<li><a href="https://www.facebook.com/thakurashwani18"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
-<li><a href="https://twitter.com/ashwanitr001"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+    <div class="main-bybu">
+      <aside>
+        <div class="brand">
+          <img src="logo.png" />
+          BYBU
+        </div>
+        <div class="links">
+          <a href="#intro">
+            <i class="fa fa-home active"></i>
+            <p class="alt-text">Home</p>
+          </a>
+          <a href="#about">
+            <i class="fa fa-user-circle-o"></i>
+            <p class="alt-text">About</p>
+          </a>
+          <a href="#skills">
+            <i class="fa fa-cog"></i>
+            <p class="alt-text">Skills</p>
+          </a>
+          <a href="#contact">
+            <i class="fa fa-envelope"></i>
+            <p class="alt-text">Contact</p>
+          </a>
+        </div>
+        <div class="social-links">
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-github"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
+        </div>
+      </aside>
 
-</ul>
-</div>
-</body>
+      <!-- Center-content -->
+      <section>
+        <div id="intro" class="container">
+          <p>
+            Hello, <br />
+            Iam Bybu <br />
+            I'am a Software Developer
+          </p>
+          <img src="text.svg" alt="" />
+          <video autoplay muted loop class="video-background">
+            <source src="bg.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <!-- about page -->
+        <div id="about" class="container">
+          <h3>About Us</h3>
+          <h1>WHO AM I?</h1>
+          <div class="by-2">
+            <img src="about.svg" />
+            <p>
+              Able to work with C#, ASP.NET, ASP.NET MVC, VB.NET, MSSQL, MySQL,
+              MongoDB, XML, SQLite, JSON, MSAccessDB
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Assumenda, fuga repudiandae reiciendis libero tempore dicta
+              distinctio similique natus commodi corporis praesentium quam, vel
+              sed ratione veritatis accusamus unde, accusantium voluptas!
+            </p>
+          </div>
+        </div>
+
+        <!-- skill page -->
+        <div id="skills" class="container">
+          <h3>MY SPECIALTY</h3>
+          <h1>MY SKILLS</h1>
+          <div class="skill-container">
+            <ul>
+              <li>Basic knowledge in Java and Python programming language</li>
+              <li>
+                Able to work with C#, ASP.NET, ASP.NET MVC, VB.NET, MSSQL,
+                MySQL, MongoDB, XML, SQLite, JSON, MSAccessDB
+              </li>
+              <li>
+                Familiar with HTML, CSS, Javascript, jQuery, Ajax, Bootstrap,
+                YUI
+              </li>
+              <li>
+                Software development in Windows, Web, and Mobile Applications
+              </li>
+              <li>Good analytical and problem-solving skills</li>
+              <li>
+                Good experience in testing, debugging, enhancing and
+                implementing applications
+              </li>
+            </ul>
+
+            <div class="diamond-grid">
+              <div class="diamond"><a href="#">Python</a></div>
+              <div class="diamond"><a href="#">JavaScript</a></div>
+              <div class="diamond"><a href="#">PHP</a></div>
+              <div class="diamond"><a href="#">Java</a></div>
+              <div class="diamond"><a href="#">Lambda</a></div>
+              <div class="diamond"><a href="#">Amplify</a></div>
+              <div class="diamond"><a href="#">MangoDB</a></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- contact-us page -->
+        <div id="contact" class="container">
+          <h2>Hello<span>.</span></h2>
+          <p class="contact-text">
+            Let's work together to create game-changing experiences that will
+            take your brand from tame to buzzworthy.
+          </p>
+          <div class="contact-cols">
+            <div class="col">
+              <h4>Contact</h4>
+              <p>hello@bybu.com</p>
+              <p>91-9988776655</p>
+            </div>
+            <div class="col">
+              <p class="start-btn">Let's <br />Start</p>
+            </div>
+            <div class="col">
+              <h4>Adddress</h4>
+              <p>Sector-17</p>
+              <p>Chandigarh, India</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
 </html>
-
