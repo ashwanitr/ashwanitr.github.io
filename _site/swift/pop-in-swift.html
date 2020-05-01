@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Understanding Protocol Oriented programming in Swift</title>
+    <meta name="description" content="WWDC2015 was all about Protocol oriented programming. How is it different?">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/swift/pop-in-swift.html">
+    <link rel="alternate" type="application/rss+xml" title="Ashwani" href="http://localhost:4000/feed.xml">
+  </head>
+
+  <body>
+	<div class="go-home">
+	  <a href="http://localhost:4000"> <svg width="100%" height="100%" viewBox="0 0 503 503" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;fill:#f48024"><circle cx="251.115" cy="251.115" r="251.115" class="home"/><clipPath id="_clip1"><circle cx="251.115" cy="251.115" r="251.115"/></clipPath><g clip-path="url(#_clip1)"><path d="M339.941,225.331c0,-2.173 -1.002,-4.225 -2.715,-5.561c-12.744,-9.938 -66.661,-51.986 -82.5,-64.339c-2.575,-2.008 -6.192,-1.985 -8.742,0.054c-15.527,12.421 -67.959,54.362 -80.364,64.285c-1.673,1.339 -2.647,3.365 -2.647,5.507c0,16.884 0,92.029 0,115.535c0,1.871 0.743,3.664 2.065,4.987c1.323,1.322 3.116,2.065 4.987,2.065c11.803,0 35.425,0 47.23,0c1.871,0 3.665,-0.743 4.988,-2.066c1.322,-1.323 2.065,-3.117 2.065,-4.988c-0.007,-19.216 -0.025,-71.055 -0.025,-71.055l54.696,-0.225c0,0 0.11,52.056 0.151,71.297c0.008,3.889 3.163,7.037 7.052,7.037c11.695,0 35.002,0 46.707,0c1.87,0 3.664,-0.743 4.987,-2.065c1.322,-1.323 2.065,-3.116 2.065,-4.987c0,-23.481 0,-98.492 0,-115.481Z" style="fill:#fff;fill-opacity:0.941177;"/></g></svg> </a>
+	</div>
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Understanding Protocol Oriented programming in Swift</h1>
+    <p class="post-meta"><time datetime="2016-09-04T00:00:00+05:30" itemprop="datePublished">Sep 4, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>WWDC2015 was all about <code class="highlighter-rouge">Protocol oriented programming</code>. How is it different?</p>
+
+<p>Lets see.</p>
+
+<h2 id="inheritance">Inheritance</h2>
+<p>Inheritance is widely used and loved by lot. But people have started talking against Inheritance</p>
+
+<p>Consider a simple example:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Shape</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span>
+    <span class="kd">func</span> <span class="nf">area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Double</span> <span class="p">{</span>
+        <span class="nf">fatalError</span><span class="p">(</span><span class="s">"This method is abstract &amp; must be overridden before using"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Circle</span><span class="p">:</span> <span class="kt">Shape</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">radius</span><span class="p">:</span> <span class="kt">Double</span><span class="o">!</span> <span class="o">=</span> <span class="mf">10.4</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Double</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="kt">M_PI</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Square</span><span class="p">:</span> <span class="kt">Shape</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">sideLength</span><span class="p">:</span> <span class="kt">Double</span><span class="o">!</span> <span class="o">=</span> <span class="mf">10.0</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Double</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">sideLength</span> <span class="o">*</span> <span class="n">sideLength</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="protocol-oriented-solution">Protocol Oriented Solution</h2>
+<p>Lets reimplement above code using Protocols</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">protocol</span> <span class="kt">Shape</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span><span class="p">}</span>
+    <span class="kd">func</span> <span class="nf">area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Double</span>
+<span class="p">}</span>
+
+<span class="kd">struct</span> <span class="kt">Circle</span><span class="p">:</span> <span class="kt">Shape</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">radius</span><span class="p">:</span> <span class="kt">Double</span>
+    <span class="kd">func</span> <span class="nf">area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Double</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="kt">M_PI</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">struct</span> <span class="kt">Square</span><span class="p">:</span> <span class="kt">Shape</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">sideLength</span><span class="p">:</span> <span class="kt">Double</span>
+    <span class="kd">func</span> <span class="nf">area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Double</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">sideLength</span> <span class="o">*</span> <span class="n">sideLength</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="nv">arr</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Shape</span><span class="p">]()</span>
+<span class="n">arr</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="kt">Circle</span><span class="p">(</span><span class="nv">color</span><span class="p">:</span> <span class="s">"Red"</span><span class="p">,</span> <span class="nv">radius</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">))</span>
+<span class="n">arr</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="kt">Square</span><span class="p">(</span><span class="nv">color</span><span class="p">:</span> <span class="s">"Green"</span><span class="p">,</span> <span class="nv">sideLength</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span></code></pre></figure>
+
+<h3 id="benefits-of-protocol-oriented-code">Benefits of protocol oriented code</h3>
+
+<h4 id="code-reuse-in-value-types">Code reuse in Value types</h4>
+<p>One of the basic difference between <code class="highlighter-rouge">Class</code> and <code class="highlighter-rouge">struct</code> is that classes can inherit while  structs cannot. Swift clearly is promoting value type over reference type. So protocols can be used to make your code more reusable in Value-type environment.</p>
+
+<h4 id="clarity">Clarity</h4>
+<p>The structures in above example more clearly state their properties and methods. There is no hidden property/method.</p>
+
+<p>But if you conform to a lot of protocols, it makes your class definition very long. But you could always use <a href="https://en.wikipedia.org/wiki/Object_composition">Object composition</a></p>
+
+<h4 id="conform-to-multiple-protocols">Conform to multiple protocols</h4>
+<p>One of the drawbacks of inheritance is there cannot be multiple superclasses(This design is discouraged although). But on the contrary a Struct/Class can conform to multiple protocols</p>
+
+
+  </div>
+
+  <div class="post-footer">
+    <p><a href="/blog" >Back to Index</a></p>
+  </div>
+</article>
+
+      </div>
+    </div>
+  </body>
+
+</html>
