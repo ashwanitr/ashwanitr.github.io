@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Exploring distribution in UIStackView</title>
-    <meta name="description" content="">
+    <title>testing the blog</title>
+    <meta name="description" content="Testing the code and blog">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://localhost:4000/swift/Exploring-distribution-in-UIStackView.html">
+    <link rel="canonical" href="http://localhost:4000/python/Testing-the-blog.html">
     <link rel="alternate" type="application/rss+xml" title="Ashwani" href="http://localhost:4000/feed.xml">
   </head>
 
@@ -23,30 +23,14 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Exploring distribution in UIStackView</h1>
-    <p class="post-meta"><time datetime="2017-08-01T00:00:00+05:30" itemprop="datePublished">Aug 1, 2017</time></p>
+    <h1 class="post-title" itemprop="name headline">testing the blog</h1>
+    <p class="post-meta"><time datetime="2020-04-02T00:00:00+05:30" itemprop="datePublished">Apr 2, 2020</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p><img src="https://user-images.githubusercontent.com/2352321/28924052-f76fe29a-787d-11e7-8856-43b86347ef16.gif" alt="StackView" /></p>
+    <h1 id="testing-the-code-and-blog">Testing the code and blog</h1>
 
-<h3 id="fill">Fill</h3>
-<p>This is the default distribution.
-Subview that has lowest Content Hugging priority(CHP) will get stretched.
-All other arranged subviews maintain same size.
-If more than one subview have same lowest CHP then Xcode complains about <code class="highlighter-rouge">Priority Ambiguity</code>. You can have multiple subviews of same CHP but make sure they are not the ones which have lowest priority.</p>
-
-<h3 id="fill-equally">Fill Equally</h3>
-<p>Here every subview <code class="highlighter-rouge">tries</code> to maintain equal size irrespective of what their intrinsic content size is. CHP comes into scene when StackView wants to compress the arranged subviews and it is not possible to maintain equal size. In this case all the subviews which can be compressed, are compressed one at a time. Here subview with Higher CHP will be compressed first.</p>
-
-<h3 id="fill-proportionally">Fill Proportionally</h3>
-<p>Views are proportionally resized based on their Intrinsic content size</p>
-
-<h3 id="equal-spacing">Equal Spacing</h3>
-<p>All views are set to their intrinsic content size and the space between the views is dynamic.</p>
-
-<h3 id="equal-centering">Equal Centering</h3>
-<p>Center point of all the views are equidistant</p>
+<p>This is a blog</p>
 
   </div>
 
