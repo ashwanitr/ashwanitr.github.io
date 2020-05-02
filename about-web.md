@@ -11,6 +11,7 @@ This is a core jekyll setup and does not have any javascript library
 ## Inspiration
 Some of the websites that I referred while making this website
 
+
 [http://biasedbit.com](http://biasedbit.com)
 
 [http://charliepark.org/happy-pride-2015/](http://charliepark.org/happy-pride-2015/)
@@ -23,6 +24,7 @@ Some of the websites that I referred while making this website
 
 [http://jordanscales.com/](http://jordanscales.com/)
 
+[https://kaunteya.github.io/](https://kaunteya.github.io/)
 
 [1]: https://jekyllrb.com/
 [2]: https://pages.github.com/
