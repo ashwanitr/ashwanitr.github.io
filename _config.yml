@@ -31,5 +31,5 @@ link_to:
   itunes_all_apps: https://itunes.apple.com/us/developer/kaunteya-suryawanshi/id927381428
   github_profile_pic: https://https://avatars2.githubusercontent.com/u/42508662?s=400&u=b21cae0e7c20898b36f427055d1d74723c664874&v=4
 
-plugins:
+gems:
     - jekyll-sitemap
