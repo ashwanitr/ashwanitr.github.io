@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Is your Binary Search Bug Free?</title>
+    <meta name="description" content="Binary search is an Algorithm to find an element in a sorted list or array in O(logn) time complexity where ‘n’ is the number of elements in the list. The id...">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/general/Binary-search.html">
+    <link rel="alternate" type="application/rss+xml" title="Ashwani" href="http://localhost:4000/feed.xml">
+  </head>
+
+  <body>
+	<div class="go-home">
+	  <a href="http://localhost:4000"> <svg width="100%" height="100%" viewBox="0 0 503 503" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;fill:#f48024"><circle cx="251.115" cy="251.115" r="251.115" class="home"/><clipPath id="_clip1"><circle cx="251.115" cy="251.115" r="251.115"/></clipPath><g clip-path="url(#_clip1)"><path d="M339.941,225.331c0,-2.173 -1.002,-4.225 -2.715,-5.561c-12.744,-9.938 -66.661,-51.986 -82.5,-64.339c-2.575,-2.008 -6.192,-1.985 -8.742,0.054c-15.527,12.421 -67.959,54.362 -80.364,64.285c-1.673,1.339 -2.647,3.365 -2.647,5.507c0,16.884 0,92.029 0,115.535c0,1.871 0.743,3.664 2.065,4.987c1.323,1.322 3.116,2.065 4.987,2.065c11.803,0 35.425,0 47.23,0c1.871,0 3.665,-0.743 4.988,-2.066c1.322,-1.323 2.065,-3.117 2.065,-4.988c-0.007,-19.216 -0.025,-71.055 -0.025,-71.055l54.696,-0.225c0,0 0.11,52.056 0.151,71.297c0.008,3.889 3.163,7.037 7.052,7.037c11.695,0 35.002,0 46.707,0c1.87,0 3.664,-0.743 4.987,-2.065c1.322,-1.323 2.065,-3.116 2.065,-4.987c0,-23.481 0,-98.492 0,-115.481Z" style="fill:#fff;fill-opacity:0.941177;"/></g></svg> </a>
+	</div>
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Is your Binary Search Bug Free?</h1>
+    <p class="post-meta"><time datetime="2020-05-03T00:00:00+05:30" itemprop="datePublished">May 3, 2020</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Binary search is an Algorithm to find an element in a sorted list or array in O(logn) time complexity where ‘n’ is the number of elements in the list. The idea behind it is very simple: divide the array into two(equal) parts multiple times until the middle element is equal to the target element. After each division reduce the search space and consider only one half of the array. If the middle element is less than the target we consider the second half and first half when the middle element is greater than target element.</p>
+
+<p>Here’s the simple code for binary search:</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="kt">int</span> <span class="nf">binarySearch</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+ 
+    <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+ 
+  <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Did you find anything wrong with this code?</p>
+
+<p><br />
+<br />
+The code is correct for most of the cases but the bug it contains exists on the line:</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span></code></pre></figure>
+
+<p>Did you figure out the bug now?
+<br />
+<br />
+Here is the explanation by Joshua Bloch on <a href="https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html"><strong>Google AI Blog</strong></a></p>
+
+<p><br /></p>
+
+<blockquote>
+  <p>In Programming Pearls Bentley says that the analogous line “sets m to the average of l and u, truncated down to the nearest integer.” On the face of it, this assertion might appear correct, but it fails for large values of the int variables low and high. Specifically, it fails if the sum of low and high is greater than the maximum positive int value (231 - 1). The sum overflows to a negative value, and the value stays negative when divided by two. In C this causes an array index out of bounds with unpredictable results. In Java, it throws ArrayIndexOutOfBoundsException. This bug can manifest itself for arrays whose length (in elements) is 230 or greater (roughly a billion elements). This was inconceivable back in the ’80s, when Programming Pearls was written, but it is common these days at Google and other places. In Programming Pearls, Bentley says “While the first binary search was published in 1946, the first binary search that works correctly for all values of n did not appear until 1962.” The truth is, very few correct versions have ever been published, at least in mainstream programming languages.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>In simple words this line can possibly cause overflow error if the left and right are extremely large and int can not store them. <br />
+<br />
+So you may be wondering how to fix this bug?
+<br />
+<br />
+We can calculate mid by :</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">((</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span></code></pre></figure>
+
+<p>Also note that right shifting a number by one bit is equivalent to dividing it by 2. We can utilize the unsigned right shift operator <code class="highlighter-rouge">(&gt;&gt;&gt;)</code> available in Java. The <code class="highlighter-rouge">&gt;&gt;&gt;</code> operator lets you treat int and long as 32-bit and 64-bit unsigned integral types (Java does not provide unsigned int and unsigned long data types).</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="o">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="o">)</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="o">;</span> </code></pre></figure>
+
+<p>In C and C++, where you don’t have the <code class="highlighter-rouge">&gt;&gt;&gt;</code> operator, you can do this:</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">right</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span></code></pre></figure>
+
+<p><br /></p>
+
+<blockquote>
+  <p>The binary-search bug also applies to merge-sort, and to other divide-and-conquer algorithms.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>I highly recommend you to read <a href="https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html"><strong>this article</strong></a> on Google AI Blog</p>
+
+  </div>
+  <br>
+  <br>
+  <br>
+  <div id="disqus_thread"></div>
+  <script>
+  
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  /*
+  var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  */
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://ashwanitr-github-io.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  <div class="post-footer">
+    <p><a href="/blog" >Back to Index</a></p>
+  </div>
+</article>
+
+      </div>
+    </div>
+  </body>
+
+</html>
