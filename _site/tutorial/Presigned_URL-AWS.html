@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-165580955-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-165580955-1');
+</script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Creating Presigned URLs in AWS</title>
+    <meta name="description" content="AWS S3 (Simple Storage Service), is one of the most popular storage solutions available in the market. One of the ways to allow the client side to store or d...">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/tutorial/Presigned_URL-AWS.html">
+    <link rel="alternate" type="application/rss+xml" title="Ashwani" href="http://localhost:4000/feed.xml">
+  </head>
+
+  <body>
+	<div class="go-home">
+	  <a href="http://localhost:4000"> <svg width="100%" height="100%" viewBox="0 0 503 503" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;fill:#f48024"><circle cx="251.115" cy="251.115" r="251.115" class="home"/><clipPath id="_clip1"><circle cx="251.115" cy="251.115" r="251.115"/></clipPath><g clip-path="url(#_clip1)"><path d="M339.941,225.331c0,-2.173 -1.002,-4.225 -2.715,-5.561c-12.744,-9.938 -66.661,-51.986 -82.5,-64.339c-2.575,-2.008 -6.192,-1.985 -8.742,0.054c-15.527,12.421 -67.959,54.362 -80.364,64.285c-1.673,1.339 -2.647,3.365 -2.647,5.507c0,16.884 0,92.029 0,115.535c0,1.871 0.743,3.664 2.065,4.987c1.323,1.322 3.116,2.065 4.987,2.065c11.803,0 35.425,0 47.23,0c1.871,0 3.665,-0.743 4.988,-2.066c1.322,-1.323 2.065,-3.117 2.065,-4.988c-0.007,-19.216 -0.025,-71.055 -0.025,-71.055l54.696,-0.225c0,0 0.11,52.056 0.151,71.297c0.008,3.889 3.163,7.037 7.052,7.037c11.695,0 35.002,0 46.707,0c1.87,0 3.664,-0.743 4.987,-2.065c1.322,-1.323 2.065,-3.116 2.065,-4.987c0,-23.481 0,-98.492 0,-115.481Z" style="fill:#fff;fill-opacity:0.941177;"/></g></svg> </a>
+	</div>
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Creating Presigned URLs in AWS</h1>
+    <p class="post-meta"><time datetime="2020-05-24T00:00:00+05:30" itemprop="datePublished">May 24, 2020</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>AWS S3 (Simple Storage Service), is one of the most popular storage solutions available in the market. One of the ways to allow the client side to store or download data to the AWS S3 is a pre-signed URL. You may also note that it is possible to upload a file (PutObject) to an S3 Bucket Using the AWS SDK. Not only does this approach require AWS Credentials, but also the inclusion of the AWS SDK in the client project, which is unnecessary to only upload a file.</p>
+
+<p>In AWS terminology a Presigned URL is defined as the URL that gives temporary access to the unauthorized users to the S3 objects. The URL is generated using IAM credentials or a role that has permissions to write to the bucket. Using these URLs, a user can either Download(Read) or Upload(Write) an object to the S3. These URLs remain valid for a limited period of time, and this time is defined during the creation of the pre-signed URL.
+<br />
+<br />
+These “pre-signed URLs” include a cryptographically signed payload - by a secret key - that contains the details of the source or destination of the content.
+To create a pre-signed URL we need three parameters:</p>
+<ol>
+  <li>Bucket: Name of the bucket in which the object is (in case of download) or in which it’ll be uploaded.</li>
+  <li>Key: Name of the Object (file)</li>
+  <li>Expires: The time for which the URL will be valid. Clients won’t be able to use the URL post the time limit.</li>
+</ol>
+
+<p>In this tutorial, I’ll demonstrate how to create a pre-signed URL using the AWS SDK on AWS Lambda. Before writing any code for the generation of Presigned URL takes care of the following points:</p>
+<ul>
+  <li>Make sure that the S3 Bucket has GetObject and PUTObject policies.</li>
+  <li>The lambda function has the permission to read and write in S3 buckets.</li>
+</ul>
+
+<p>Here’s a code snippet for creating a Presigned URL for Downloading Objects from the bucket:
+<br />
+<br /></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># The following code will generate a Presigned URL for downloading.
+</span><span class="k">def</span> <span class="nf">create_presigned_url</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">expiration</span><span class="o">=</span><span class="mi">3600</span><span class="p">):</span>
+    <span class="s">"""
+    Generate a presigned URL to share an S3 object
+    :param bucket_name: string
+    :param object_name: string
+    :param expiration: Time in seconds for the presigned URL to remain valid
+    :return: Presigned URL as string. If error, returns None.   
+    """</span>
+    <span class="c1"># Generate a presigned URL for the S3 object
+</span>    <span class="n">s3_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="n">client</span><span class="p">(</span><span class="s">'s3'</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">s3_client</span><span class="p">.</span><span class="n">generate_presigned_url</span><span class="p">(</span><span class="s">'get_object'</span><span class="p">,</span>
+                              <span class="n">Params</span><span class="o">=</span><span class="p">{</span><span class="s">'Bucket'</span><span class="p">:</span> <span class="n">bucket_name</span><span class="p">,</span><span class="s">'Key'</span><span class="p">:</span> <span class="n">object_name</span><span class="p">},</span>
+                              <span class="n">ExpiresIn</span><span class="o">=</span><span class="n">expiration</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="c1"># The response contains the presigned URL
+</span>    <span class="k">return</span> <span class="n">response</span></code></pre></figure>
+
+<p><br /></p>
+
+<p>Code snippet for creating a Presigned URL for Uploading Objects to the bucket:
+<br />
+<br /></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">get_presigned_url</span><span class="p">(</span><span class="n">uuid</span><span class="p">,</span>
+            <span class="n">fields</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">conditions</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">expiration</span><span class="o">=</span><span class="mi">3600</span><span class="p">):</span>
+    <span class="s">""" Return a presigned URL to upload a file"""</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">object_name</span> <span class="o">=</span> <span class="s">"key_name_you_want_on_s3"</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">S3_CLIENT</span><span class="p">.</span><span class="n">generate_presigned_post</span><span class="p">(</span><span class="n">s3_bucket_name</span><span class="p">,</span><span class="n">object_name</span><span class="p">,</span>
+                                          <span class="n">Fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span>
+                                          <span class="n">Conditions</span><span class="o">=</span><span class="n">conditions</span><span class="p">,</span>
+                                          <span class="n">ExpiresIn</span><span class="o">=</span><span class="n">expiration</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="c1"># The response contains the presigned URL and required fields
+</span>    <span class="k">return</span> <span class="n">response</span></code></pre></figure>
+
+<p><br />
+The above code will return a temporary URL for downloading or uploading a file to the S3 bucket. Now the client application can use this URL to download or Upload the files, without any exposure of the AWS credentials in the Client App.</p>
+
+<p>So, In a nutshell, we can say that pre-signed Urls gives temporary access to the S3 objects to the User without exposing any auth data, and the above tutorial guide you to accomplish the same.</p>
+
+  </div>
+  <br>
+  <br>
+  <br>
+  <div id="disqus_thread"></div>
+  <script>
+  
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  /*
+  var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  */
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://ashwanitr-github-io.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  <div class="post-footer">
+    <p><a href="/blog" >Back to Index</a></p>
+  </div>
+</article>
+
+      </div>
+    </div>
+  </body>
+
+</html>
