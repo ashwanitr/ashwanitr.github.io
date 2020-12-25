@@ -7,10 +7,10 @@
 
 # Site settings
 title: Ashwani
-email: ashwanitr001@gmail.com
+email: ashwani.rtm@gmail.com
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ashwanitr.com" # the base hostname & protocol for your site
-twitter_username: ashwani_tr
+twitter_username: ashwanirtm
 github_username:  ashwanitr
 
 permalink:  none
@@ -24,7 +24,7 @@ permalink: none
 # URLS
 link_to:
   github:          https://github.com/ashwanitr
-  twitter:         https://twitter.com/ashwani_tr
+  twitter:         https://twitter.com/ashwanirtm
   linkedin:        https://linkedin.com/in/ashwanitr3
   github_profile_pic: https://https://avatars2.githubusercontent.com/u/42508662?s=400&u=b21cae0e7c20898b36f427055d1d74723c664874&v=4
 
